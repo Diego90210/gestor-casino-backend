@@ -6,11 +6,16 @@ import jakarta.persistence.*;
 @Table(name = "empresas")
 public class Empresa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nit;
 
     @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
+    private String direccion;
+
+    @Column(nullable = false)
+    private Long telefono;
 
     // Getters y Setters
 
@@ -22,6 +27,14 @@ public class Empresa {
         return nombre;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public Long getTelefono() {
+        return telefono;
+    }
+
     public void setNit(Long nit) {
         this.nit = nit;
     }
@@ -30,11 +43,21 @@ public class Empresa {
         this.nombre = nombre;
     }
 
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
+    }
+
     @Override
     public String toString() {
         return "Empresa{" +
                 "nit=" + nit +
                 ", nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", telefono=" + telefono +
                 '}';
     }
 }

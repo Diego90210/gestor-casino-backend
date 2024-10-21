@@ -6,15 +6,13 @@ import jakarta.persistence.*;
 @Table(name = "empleados")
 public class Empleado {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cedula;
 
     @Column(nullable = false)
     private String nombre;
 
-    @ManyToOne(fetch = FetchType.LAZY)  // Relación con la empresa
-    @JoinColumn(name = "empresa_nit", referencedColumnName = "nit")
-    private Empresa empresa;
+    @Column(nullable = false)
+    private Long empresaNIT;
 
     // Getters y Setters
 
@@ -26,8 +24,8 @@ public class Empleado {
         return nombre;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public Long getEmpresaNIT() {
+        return empresaNIT;
     }
 
     public void setCedula(Long cedula) {
@@ -38,8 +36,8 @@ public class Empleado {
         this.nombre = nombre;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setEmpresaNIT(Long empresaNIT) {
+        this.empresaNIT = empresaNIT;
     }
 
     @Override
@@ -47,7 +45,7 @@ public class Empleado {
         return "Empleado{" +
                 "cedula=" + cedula +
                 ", nombre='" + nombre + '\'' +
-                ", empresa=" + empresa +
+                ", empresaNIT=" + empresaNIT +
                 '}';
     }
 }
