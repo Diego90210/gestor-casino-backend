@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/reportes")
 public class ReporteController {
@@ -38,13 +37,11 @@ public class ReporteController {
     }
 
     // Crear un nuevo reporte
-    @PostMapping("/empresa/{nit}")
-    public ResponseEntity<Reporte> crearReporte(
-            @PathVariable Long nit,
-            @RequestParam LocalDate fechaInicio,
-            @RequestParam LocalDate fechaFin) {
-
-        Reporte nuevoReporte = reporteService.crearReporte(nit, fechaInicio, fechaFin);
+    @PostMapping
+    public ResponseEntity<Reporte> crearReporte(@RequestParam Long nitEmpresa,
+                                                @RequestParam LocalDate fechaInicio,
+                                                @RequestParam LocalDate fechaFin) {
+        Reporte nuevoReporte = reporteService.crearReporte(nitEmpresa, fechaInicio, fechaFin);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoReporte);
     }
 
@@ -55,4 +52,5 @@ public class ReporteController {
         return ResponseEntity.noContent().build();
     }
 }
+
 

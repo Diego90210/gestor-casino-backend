@@ -3,7 +3,6 @@ package com.diego.gestorcasino.controllers;
 import com.diego.gestorcasino.models.Consumo;
 import com.diego.gestorcasino.services.ConsumoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +18,16 @@ public class ConsumoController {
 
     // Obtener todos los consumos
     @GetMapping
-    public List<Consumo> obtenerTodosLosConsumos() {
-        return consumoService.obtenerTodosLosConsumos();
+    public ResponseEntity<List<Consumo>> obtenerTodosLosConsumos() {
+        List<Consumo> consumos = consumoService.obtenerTodosLosConsumos();
+        return ResponseEntity.ok(consumos);
     }
 
-    // Obtener los consumos por empleado
+    // Obtener consumos por empleado
     @GetMapping("/empleado/{cedula}")
-    public List<Consumo> obtenerConsumosPorEmpleado(@PathVariable Long cedula) {
-        return consumoService.obtenerConsumosPorEmpleado(cedula);
+    public ResponseEntity<List<Consumo>> obtenerConsumosPorEmpleado(@PathVariable Long cedula) {
+        List<Consumo> consumos = consumoService.obtenerConsumosPorEmpleado(cedula);
+        return ResponseEntity.ok(consumos);
     }
 
     // Obtener un consumo por su ID
@@ -36,14 +37,14 @@ public class ConsumoController {
         return ResponseEntity.ok(consumo);
     }
 
-    // anadir un nuevo consumo
-    @PostMapping("/empleado/{cedula}")
-    public ResponseEntity<Consumo> anadirConsumo(@PathVariable Long cedula, @RequestBody Consumo consumo) {
-        Consumo nuevoConsumo = consumoService.anadirConsumo(cedula, consumo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoConsumo);
+    // Crear un nuevo consumo
+    @PostMapping
+    public ResponseEntity<Consumo> anadirConsumo(@RequestParam Long empleadoCedula, @RequestBody Consumo consumo) {
+        Consumo nuevoConsumo = consumoService.anadirConsumo(empleadoCedula, consumo);
+        return ResponseEntity.ok(nuevoConsumo);
     }
 
-    // Actualizar un consumo existente
+    // Actualizar un consumo
     @PutMapping("/{id}")
     public ResponseEntity<Consumo> actualizarConsumo(@PathVariable Long id, @RequestBody Consumo detallesConsumo) {
         Consumo consumoActualizado = consumoService.actualizarConsumo(id, detallesConsumo);
@@ -56,4 +57,12 @@ public class ConsumoController {
         consumoService.eliminarConsumo(id);
         return ResponseEntity.noContent().build();
     }
+
+    // Obtener el total de un consumo
+    @GetMapping("/{id}/total")
+    public ResponseEntity<Double> obtenerTotalConsumo(@PathVariable Long id) {
+        Consumo consumo = consumoService.obtenerConsumoPorId(id);
+        return ResponseEntity.ok(consumo.getTotal()); // Devolver el total almacenado
+    }
 }
+

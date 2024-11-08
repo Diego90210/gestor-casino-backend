@@ -29,7 +29,7 @@ public class PlatoController {
         return ResponseEntity.ok(plato);
     }
 
-    // anadir un nuevo plato
+    // Añadir un nuevo plato
     @PostMapping
     public ResponseEntity<Plato> anadirPlato(@RequestBody Plato plato) {
         Plato nuevoPlato = platoService.anadirPlato(plato);
@@ -50,4 +50,3 @@ public class PlatoController {
         return ResponseEntity.noContent().build();
     }
 }
-

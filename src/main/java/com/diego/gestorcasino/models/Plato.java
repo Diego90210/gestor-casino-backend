@@ -19,6 +19,9 @@ public class Plato {
     @Column(nullable = false)
     private String descripcion;
 
+    @Column(nullable = false)
+    private String categoria;
+
     // Getters y setters
     public Long getId() {
         return id;
@@ -52,6 +55,14 @@ public class Plato {
         this.descripcion = descripcion;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public String toString() {
         return "Plato{" +
@@ -59,7 +70,7 @@ public class Plato {
                 ", nombre='" + nombre + '\'' +
                 ", precio=" + precio +
                 ", descripcion='" + descripcion + '\'' +
+                ", categoria='" + categoria + '\'' +
                 '}';
     }
 }
-

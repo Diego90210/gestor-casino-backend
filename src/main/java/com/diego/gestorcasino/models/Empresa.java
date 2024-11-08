@@ -17,6 +17,9 @@ public class Empresa {
     @Column(nullable = false)
     private Long telefono;
 
+    @Column(nullable = false)
+    private String contacto; // Nuevo atributo
+
     // Getters y Setters
 
     public Long getNit() {
@@ -35,6 +38,10 @@ public class Empresa {
         return telefono;
     }
 
+    public String getContacto() { // Getter para contacto
+        return contacto;
+    }
+
     public void setNit(Long nit) {
         this.nit = nit;
     }
@@ -51,6 +58,10 @@ public class Empresa {
         this.telefono = telefono;
     }
 
+    public void setContacto(String contacto) { // Setter para contacto
+        this.contacto = contacto;
+    }
+
     @Override
     public String toString() {
         return "Empresa{" +
@@ -58,6 +69,8 @@ public class Empresa {
                 ", nombre='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", telefono=" + telefono +
+                ", contacto='" + contacto + '\'' + // Añadido al toString
                 '}';
     }
 }
+

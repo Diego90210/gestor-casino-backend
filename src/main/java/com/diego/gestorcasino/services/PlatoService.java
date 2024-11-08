@@ -24,7 +24,7 @@ public class PlatoService {
                 .orElseThrow(() -> new RuntimeException("Plato no encontrado con id: " + id));
     }
 
-    // anadir un nuevo plato
+    // Añadir un nuevo plato
     public Plato anadirPlato(Plato plato) {
         return platoRepository.save(plato);
     }
@@ -37,6 +37,7 @@ public class PlatoService {
         platoExistente.setNombre(detallesPlato.getNombre());
         platoExistente.setPrecio(detallesPlato.getPrecio());
         platoExistente.setDescripcion(detallesPlato.getDescripcion());
+        platoExistente.setCategoria(detallesPlato.getCategoria());  // Añadido para manejar la categoría
 
         return platoRepository.save(platoExistente);
     }
@@ -48,5 +49,6 @@ public class PlatoService {
         platoRepository.delete(plato);
     }
 }
+
 
 

@@ -47,7 +47,7 @@ public class ReporteService {
                 .orElseThrow(() -> new RuntimeException("Empresa no encontrada con NIT: " + nitEmpresa));
 
         List<Consumo> consumos = consumoRepository.findAll().stream()
-                .filter(consumo -> consumo.getEmpleado().getEmpresaNIT().equals(nitEmpresa))
+                .filter(consumo -> consumo.getCedulaEmpleado() != null)  // Aquí puedes agregar una validación si es necesario
                 .filter(consumo -> !consumo.getFecha().isBefore(fechaInicio) && !consumo.getFecha().isAfter(fechaFin))
                 .collect(Collectors.toList());
 

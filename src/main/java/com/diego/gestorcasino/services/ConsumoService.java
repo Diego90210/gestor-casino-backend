@@ -1,7 +1,7 @@
 package com.diego.gestorcasino.services;
+
 import com.diego.gestorcasino.models.Plato;
 import com.diego.gestorcasino.models.Consumo;
-import com.diego.gestorcasino.models.Empleado;
 import com.diego.gestorcasino.repositories.ConsumoRepository;
 import com.diego.gestorcasino.repositories.EmpleadoRepository;
 import com.diego.gestorcasino.repositories.PlatoRepository;
@@ -28,8 +28,8 @@ public class ConsumoService {
     }
 
     // Obtener los consumos por empleado
-    public List<Consumo> obtenerConsumosPorEmpleado(Long cedula) {
-        return consumoRepository.findByEmpleadoCedula(cedula);
+    public List<Consumo> obtenerConsumosPorEmpleado(Long cedulaEmpleado) {
+        return consumoRepository.findByCedulaEmpleado(cedulaEmpleado);
     }
 
     // Obtener un consumo por su ID
@@ -38,12 +38,15 @@ public class ConsumoService {
                 .orElseThrow(() -> new RuntimeException("Consumo no encontrado con id: " + id));
     }
 
-    // anadir un nuevo consumo
-    public Consumo anadirConsumo(Long empleadoCedula, Consumo consumo) {
-        Empleado empleado = empleadoRepository.findById(empleadoCedula)
-                .orElseThrow(() -> new RuntimeException("Empleado no encontrado con cédula: " + empleadoCedula));
-        consumo.setEmpleado(empleado);
+    // Añadir un nuevo consumo
+    public Consumo anadirConsumo(Long cedulaEmpleado, Consumo consumo) {
+        // Verificar si el empleado existe
+        if (!empleadoRepository.existsById(cedulaEmpleado)) {
+            throw new RuntimeException("Empleado no encontrado con cédula: " + cedulaEmpleado);
+        }
+        consumo.setCedulaEmpleado(cedulaEmpleado);
 
+        // Calcular el total en base a los platos consumidos
         double total = consumo.getPlatosConsumidos()
                 .stream()
                 .mapToDouble(Plato::getPrecio)
@@ -77,4 +80,3 @@ public class ConsumoService {
         consumoRepository.delete(consumo);
     }
 }
-

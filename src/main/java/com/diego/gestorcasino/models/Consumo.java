@@ -1,7 +1,6 @@
 package com.diego.gestorcasino.models;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +13,8 @@ public class Consumo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "empleado_cedula", nullable = false)
-    private Empleado empleado;
+    @Column(nullable = false)
+    private Long cedulaEmpleado;  // Solo se almacena la cédula del empleado
 
     @Column(nullable = false)
     private LocalDate fecha;
@@ -41,12 +39,12 @@ public class Consumo {
         this.id = id;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public Long getCedulaEmpleado() {
+        return cedulaEmpleado;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setCedulaEmpleado(Long cedulaEmpleado) {
+        this.cedulaEmpleado = cedulaEmpleado;
     }
 
     public LocalDate getFecha() {
@@ -72,16 +70,4 @@ public class Consumo {
     public void setPlatosConsumidos(List<Plato> platosConsumidos) {
         this.platosConsumidos = platosConsumidos;
     }
-
-    @Override
-    public String toString() {
-        return "Consumo{" +
-                "id=" + id +
-                ", empleado=" + empleado +
-                ", fecha=" + fecha +
-                ", total=" + total +
-                ", platosConsumidos=" + platosConsumidos +
-                '}';
-    }
 }
-
